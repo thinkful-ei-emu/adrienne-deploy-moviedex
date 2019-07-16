@@ -26,28 +26,22 @@ server.get('/movie', function handleGetMovie(req, res) {
   let response = movies;
 
   const { genre, country, avg_vote } = req.query;
-
-  let genreResults = movies.filter(movie => movie.genre.toLowerCase().includes(genre.toLowerCase()));
-
-  let countryResults = movies.filter(movie => movie.country.toLowerCase().includes(country.toLowerCase()));
-
-  const voteNumber = Number(`${avg_vote}`);
-
-  let voteResults = movies.filter(movie => movie.avg_vote >= voteNumber);
   
   if(genre) {
     response = movies.filter(movie => movie.genre.toLowerCase().includes(genre.toLowerCase()));
   }
 
   if(country) {
-    return res.json(countryResults);
+    response = movies.filter(movie => movie.country.toLowerCase().includes(country.toLowerCase()));
   }
+
+  const voteNumber = Number(`${avg_vote}`);
 
   if(avg_vote) {
-    return res.json(voteResults);
+    response = movies.filter(movie => movie.avg_vote >= voteNumber);
   }
 
-  res.json(movies);
+  res.json(response);
 });
 
 const PORT = 8000;
