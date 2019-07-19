@@ -1,5 +1,5 @@
 {
-  "name": "Adrienne-Zane-moviedex",
+  "name": "Adrienne-deploy-moviedex",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,6 +14,9 @@
     "url": "git+https://github.com/thinkful-ei-emu/Adrienne-Zane-moviedex.git"
   },
   "keywords": [],
+  "engines" : {
+    "node": "10.11.0"
+  },
   "author": "",
   "license": "ISC",
   "bugs": {

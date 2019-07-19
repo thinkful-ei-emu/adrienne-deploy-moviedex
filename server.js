@@ -6,8 +6,8 @@ const helmet = require('helmet');
 const movies = require('./movie-data-small.json');
 
 const server = express();
-
-server.use(morgan('common'));
+const morganSetting = process.env.NODE_ENV === 'production' ? 'tiny' : 'common';
+server.use(morgan(morganSetting));
 server.use(helmet());
 server.use(cors());
 
@@ -44,7 +44,17 @@ server.get('/movie', function handleGetMovie(req, res) {
   res.json(response);
 });
 
-const PORT = 8000;
+server.use((error, req, res, next) => {
+  let response;
+  if(process.env.NODE_ENV === 'production') {
+    response = { error: { message: 'server error'}};
+  } else {
+    response = {error};
+  }
+  res.status(500).json(response);
+});
+
+const PORT = process.env.PORT || 8000;
 
 server.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
